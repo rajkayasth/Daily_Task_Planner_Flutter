@@ -57,13 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     List<Task> pandingList = [];
 
-    for(var i = 0; i < _tasks.length; i ++)
-      if(!_taskDone[i]) pandingList.add(_tasks[i]);
+    for (var i = 0; i < _tasks.length; i++)
+      if (!_taskDone[i]) pandingList.add(_tasks[i]);
 
-      var pandingListEncoded = List.generate(pandingList.length, (i) => json.encode(pandingList[i].getMap()));
-      prefs.setString('task', json.encode(pandingListEncoded));
+    var pandingListEncoded = List.generate(
+        pandingList.length, (i) => json.encode(pandingList[i].getMap()));
+    prefs.setString('task', json.encode(pandingListEncoded));
 
-      _getTasks();
+    _getTasks();
   }
 
   @override
@@ -92,16 +93,17 @@ class _HomeScreenState extends State<HomeScreen> {
           style: GoogleFonts.montserrat(),
         ),
         actions: [
-          IconButton(icon:  Icon(CupertinoIcons.square_favorites_alt_fill),onPressed: updatePandingTaskList),
-          IconButton(icon:  Icon(CupertinoIcons.delete_solid),
+          IconButton(
+              icon: Icon(CupertinoIcons.square_favorites_alt_fill),
+              onPressed: updatePandingTaskList),
+          IconButton(
+              icon: Icon(CupertinoIcons.delete_solid),
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.setString('task', json.encode([]));
 
                 _getTasks();
-          }
-
-              )
+              })
         ],
       ),
       body: (_tasks == null)
@@ -238,6 +240,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 }
